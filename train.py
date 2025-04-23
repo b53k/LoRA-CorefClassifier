@@ -153,7 +153,7 @@ def main():
 
     # Load Checkpoint if available
     if args.load_checkpoint and os.path.exists(save_path):
-
+        torch.cuda.empty_cache()
         checkpoint = torch.load(save_path)
         model.load_state_dict(checkpoint['model_state_dict'])
         classifier.load_state_dict(checkpoint['classifier_state_dict'])
@@ -164,9 +164,9 @@ def main():
 
 
     best_val_f1 = 0
-    patience = 3
+    patience = 4
     trigger_times = 0
-    val_check_batch = 200
+    val_check_batch = 250
 
     for epoch in tqdm.trange(args.epochs, desc="Training", unit="epoch"):
         with tqdm.tqdm(train_loader, desc=f'epoch {epoch+1}', unit='batch', total=len(train_loader), position=0, leave=True) as batch_iterator:
@@ -214,7 +214,7 @@ def main():
                     model.train()
                     classifier.train()
 
-                    if f1 > best_val_f1 + 0.01:
+                    if f1 > best_val_f1 + 0.001:
                         best_val_f1 = f1
                         trigger_times = 0
                         torch.save({
