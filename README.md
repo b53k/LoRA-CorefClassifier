@@ -45,11 +45,11 @@ This script fine-tunes a BERT model (with LoRA injected) for a binary classifica
 
 Training a doc_quality aware classifier:
 ```bash
-python train.py --lr 2e-5 --epochs 3 --score --save_dir models --load_checkpoint
+python train.py --lr 2e-5 --epochs 3 --score --save_dir models --load_checkpoint (optional) --checkpoint_type ([latest or best])
 ```
 Training a baseline classifier:
 ```bash
-python train.py --lr 2e-5 --epochs 3 --save_dir models --load_checkpoint
+python train.py --lr 2e-5 --epochs 3 --save_dir models --load_checkpoint (optional) --checkpoint_type ([latest or best])
 ```
 
 Results are logged in a file under `logs/`
